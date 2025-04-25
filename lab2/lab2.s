@@ -1,11 +1,12 @@
 bits 64
 
 section .data
-rows:	dd 3
+rows:	dd 4
 columns:dd 8         
 matrix: db 8, 7, 121, -9, 126, 123, 4, -120  
 		db 100, 110, -3, 1, 9, -99, 90, 111
 		db 121, 0, -99, 80, -23, 0, 56, 70
+		db -1, -22, -100, -50, -99, -9, -2, -80
 
 section .text
 global _start
@@ -61,8 +62,13 @@ comb_sort_loop:
 
     ; сравниваем r12b и r13b
     cmp r12b, r13b
-    jle .no_swap
-    ; если r12b > r13b, меняем их местами
+    %if ASC=0	
+    	jle .no_swap
+    %else
+		jge .no_swap
+	%endif
+    
+    ; если нужно, меняем их местами
     mov [rbx + rax], r13b
     mov [rbx + r10], r12b
     mov r9d, 1              ; swapped = 1

@@ -1,13 +1,13 @@
-AS = /usr/bin/nasm
+AS = nasm
 LD = /usr/bin/ld
 
 ASFLAGS = -g -f elf64
 LDFLAGS = -static
 
-SRCS = lab1.s
+SRCS = lab3.s
 OBJS = $(SRCS:.s=.o)
 
-EXE = lab1
+EXE = lab3
 
 all: $(SRCS) $(EXE)
 
